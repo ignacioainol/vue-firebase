@@ -39,11 +39,13 @@ import citiesColRef from "@/firebase";
 import { addDoc } from 'firebase/firestore';
 
 export default {
-  data() {({
-    name:null,
-    county:null,
-    country: null
-  })},
+  data() {
+    return {
+      name: null,
+      county: null,
+      country: null
+    }
+  },
   methods: {
     async createCity(){
       console.log("Creating Document")
