@@ -50,7 +50,9 @@ export default {
     async createCity(){
       console.log("Creating Document")
       const addedDoc = await addDoc(citiesColRef, this.$data);
+      alert('Document Added successfully');
       console.log(addedDoc);
+      this.$router.push("/");
     }
   }
 }
