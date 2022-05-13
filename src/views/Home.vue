@@ -9,7 +9,7 @@
               {{ city.name }}
               <span class="badge badge-primary badge-pill">
                 <router-link class="btn btn-primary" :to="{path: `/cities/${city.id}`}">Edit</router-link>
-                <a href="#" class="btn btn-danger ms-1">Delete</a>
+                <a href="#" @click="deleteCity(city.id)" class="btn btn-danger ms-1">Delete</a>
               </span>
             </li>
           </ul>
@@ -21,14 +21,15 @@
 
 <script>
 import citiesColRef from "@/firebase";
-import { getDocs } from '@firebase/firestore';
+import { getDocs, doc, deleteDoc } from '@firebase/firestore';
 
 export default {
   name: "Home",
   components: {},
   data(){
     return{
-      cities: []
+      cities: [],
+      selectedDoc: null
     }
   },
   methods: {
@@ -43,6 +44,12 @@ export default {
       })
       console.log(cities);
       this.cities = cities;
+    },
+    async deleteCity(cityId){
+      let cityRef = doc(citiesColRef, cityId);
+      await deleteDoc(cityRef);
+      alert('City deleted successfully!')
+      this.$router.go();
     }
   },
   created(){
